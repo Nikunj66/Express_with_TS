@@ -3,15 +3,12 @@ import {Request, Response} from "express";
 import {createConnection} from "typeorm";
 import User from "./entity/User";
 
-// create typeorm connection
 createConnection().then(connection => {
     const userRepository = connection.getRepository(User);
 
-    // create and setup express app
     const app = express();
     app.use(express.json());
 
-    // register routes
 
     app.get("/users", async function(req: Request, res: Response) {
         const users = await userRepository.find();
@@ -41,7 +38,6 @@ createConnection().then(connection => {
         return res.send(results);
     });
 
-    // start express server
     app.listen(3000,()=>{
         console.log("Server is Running!!");    
     });
